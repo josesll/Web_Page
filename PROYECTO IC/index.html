@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mercados Digitales - Perú</title>
+<link rel="stylesheet" href="CSS/estilo.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <i class="fa-solid fa-store"></i>
+      <div>
+        Mercados Digitales
+        <div><span>Transformando lo físico en inteligente</span></div>
+      </div>
+    </div>
+    <button id="darkToggle" title="Modo oscuro" aria-label="Activar modo oscuro">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+  </div>
+</header>
+<div class="navbar">
+  <a href="#" onclick="mostrarSeccion('productos')"><b>Productos</b></a>
+  <a href="#" onclick="mostrarSeccion('agregar')"><b>Agregar productos</b></a>
+</div>
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <h1>Compara precios en mercados locales del Perú</h1>
+  <p>Encuentra el mejor precio cerca de ti y ahorra en tu canasta diaria</p>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Buscar producto (ej: arroz, pollo, papa…)" autocomplete="off" />
+    <button onclick="applyAll()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main>
+    <!--- PRODUCTOS -->
+    <div id="productos" class="seccion" style="display: none;">
+        <h2>Lista de productos</h2>
+        <ul id="listaProductos"></ul>
+        <!-- FILTROS -->
+        <div class="filters" role="search" aria-label="Filtros de búsqueda">
+            <div class="filter-group">
+            <label for="filterLocation"><i class="fa-solid fa-location-dot"></i> Ubicación</label>
+            <select id="filterLocation">
+                <option value="">Todos los mercados</option>
+                <option>Mercado de Surquillo</option>
+                <option>Mercado Central</option>
+                <option>Mercado de Miraflores</option>
+                <option>Mercado de San Isidro</option>
+                <option>Mercado de Villa El Salvador</option>
+                <option>Mercado de Chorrillos</option>
+                <option>Mercado de San Juan de Lurigancho</option>
+            </select>
+            </div>
+
+            <div class="filter-group">
+            <label><i class="fa-solid fa-arrow-down-wide-short"></i> Precio máximo</label>
+            <div class="range-row">
+                <input type="range" id="filterPrice" min="1" max="25" value="25" step="0.5"
+                    oninput="document.getElementById('priceVal').textContent='S/ '+parseFloat(this.value).toFixed(2)" />
+                <span class="range-val" id="priceVal">S/ 25.00</span>
+            </div>
+            </div>
+
+            <div class="filter-group">
+            <label for="filterSort"><i class="fa-solid fa-sort"></i> Ordenar por</label>
+            <select id="filterSort">
+                <option value="">Relevancia</option>
+                <option value="asc">Precio: menor a mayor</option>
+                <option value="desc">Precio: mayor a menor</option>
+            </select>
+            </div>
+
+            <button class="btn-apply" onclick="applyAll()"><i class="fa-solid fa-filter"></i> Aplicar filtros</button>
+            <button class="btn-reset" onclick="resetAll()"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar" id="statsBar">
+            <!-- renderizado por JS -->
+        </div>
+
+        <!-- SECTION HEADER -->
+        <div class="section-header">
+            <h2><i class="fa-solid fa-tag" style="color:var(--blue);margin-right:.4rem"></i>Resultados</h2>
+            <span class="result-count" id="resultCount">0 productos</span>
+        </div>
+
+        <!-- PRODUCT GRID -->
+        <div class="products-grid" id="productsGrid"></div>    
+    </div>
+
+    <!-- AGREGAR -->
+    <div id="agregar" class="form-st" style="display: none;">
+        <div class="filters" style="max-width: 500px; margin:auto;">
+        <h2 style="margin-bottom:10px;">Agregar nuevo producto</h2>
+        <div class="filter-group">
+            <label>Nombre</label>
+            <input type="text" id="nuevoNombre" placeholder="Ej: Arroz">
+        </div>
+
+        <div class="filter-group">
+            <label>Precio</label>
+            <input type="number" id="nuevoPrecio" placeholder="Ej: 3.50">
+        </div>
+
+        <div class="filter-group">
+            <label>Vendedor</label>
+            <input type="text" id="nuevoVendedor" placeholder="Ej: Tienda S&A">
+        </div>
+
+        <div class="filter-group">
+            <label>Ubicación</label>
+            <input type="text" id="nuevoLugar" placeholder="Ej: Mercado Central">
+        </div>
+        <div class="input-group">
+            <label>Emoji</label>
+            <i class="fa-solid fa-face-smile"></i>
+            <input type="text" id="nuevoEmoji" placeholder="Emoji (ej: 🍎)">
+        </div>
+        <button class="btn-apply" onclick="guardarProducto()">
+            <i class="fa-solid fa-plus"></i> Guardar producto
+        </button>
+        </div>
+        <!-- HOW IT WORKS -->
+        <div class="how-section">
+            <h2><i class="fa-solid fa-circle-info" style="color:var(--blue);margin-right:.5rem"></i>¿Cómo funciona?</h2>
+            <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Busca tu producto</h3>
+                <p>Escribe el nombre del producto que necesitas en la barra de búsqueda y presiona buscar.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Compara precios</h3>
+                <p>Revisa las tarjetas de cada mercado. El producto más barato se destaca automáticamente con la etiqueta "Mejor precio".</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>¡Ahorra!</h3>
+                <p>Elige la opción más conveniente y ve cuánto dinero puedes ahorrar frente al precio más caro disponible.</p>
+            </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+  &copy; 2025 Mercados Digitales Perú &mdash; Proyecto de transformación digital de mercados locales
+</footer>
+<script src="SCRIPT/script.js"></script>
+</body>
