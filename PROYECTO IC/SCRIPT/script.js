@@ -154,6 +154,15 @@ function mostrarSeccion(seccion) {
   document.getElementById(seccion).style.display = "block";
 }
 
+function toggleEmojiMenu() {
+  const menu = document.getElementById("emojiMenu");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+
+function seleccionarEmoji(emoji) {
+  document.getElementById("nuevoEmoji").value = emoji;
+  document.getElementById("emojiMenu").style.display = "none";
+}
 
 function guardarProducto() {
   const nombre = document.getElementById("nuevoNombre").value.trim();
@@ -194,17 +203,9 @@ function guardarProducto() {
   mostrarSeccion("productos");
 }
 
-
-
-
-
 function guardarEnLocalStorage() {
     localStorage.setItem("productos", JSON.stringify(PRODUCTS))
 }
-
-
-
-
 
 /* ── Initial render ── */
 window.onload = function() {

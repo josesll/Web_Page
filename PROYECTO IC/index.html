@@ -120,10 +120,22 @@
             <label>Ubicación</label>
             <input type="text" id="nuevoLugar" placeholder="Ej: Mercado Central">
         </div>
-        <div class="input-group">
-            <label>Emoji</label>
-            <i class="fa-solid fa-face-smile"></i>
-            <input type="text" id="nuevoEmoji" placeholder="Emoji (ej: 🍎)">
+        <div class="input-group" style="position: relative;">
+            <i class="fa-solid fa-face-smile" onclick="toggleEmojiMenu()"></i>
+            <input type="text" id="nuevoEmoji" placeholder="Emoji" readonly>
+            <!-- MENÚ -->
+            <div id="emojiMenu" class="emoji-menu">
+                <span onclick="seleccionarEmoji('🌾')">🌾</span>
+                <span onclick="seleccionarEmoji('🍊')">🍊</span>
+                <span onclick="seleccionarEmoji('🍇')">🍇</span>
+                <span onclick="seleccionarEmoji('🍎')">🍎</span>
+                <span onclick="seleccionarEmoji('🥦')">🥦</span>
+                <span onclick="seleccionarEmoji('🥔')">🥔</span>
+                <span onclick="seleccionarEmoji('🍗')">🍗</span>
+                <span onclick="seleccionarEmoji('🥛')">🥛</span>
+                <span onclick="seleccionarEmoji('🍞')">🍞</span>
+                <span onclick="seleccionarEmoji('🥚')">🥚</span>
+            </div>
         </div>
         <button class="btn-apply" onclick="guardarProducto()">
             <i class="fa-solid fa-plus"></i> Guardar producto

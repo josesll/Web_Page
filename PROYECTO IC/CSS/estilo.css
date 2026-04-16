@@ -271,6 +271,30 @@
   }
   .btn-reset:hover { border-color: var(--blue); color: var(--blue); }
 
+  .emoji-menu {
+    display: none;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    padding: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 200px;
+    z-index: 10;
+  }
+
+  .emoji-menu span {
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .emoji-menu span:hover {
+    transform: scale(1.2);
+  }
+
   /* ── Stats bar ── */
   .stats-bar {
     display: flex;
